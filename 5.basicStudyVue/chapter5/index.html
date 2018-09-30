@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js App</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="app">
+            <my-component></my-component>
+            <comp-child val="これは子A"></comp-child>
+            <comp-child val="これは子B"></comp-child>
+            <p>※トランジション</p>
+            <p><button v-on:click="show=!show">切り替え</button></p>
+            <transition>
+                <div v-if="show" key="a">TRUE</div>
+                <div v-else="show" key="b">FALSE</div>
+            </transition>
+            <transition name="demo">
+              <div v-show="show">
+                トランジションさせたい要素
+              </div>
+            </transition>
+            <transition mode="out-in">
+                <div v-if="show" key="a">
+                    <img src="imgs/image.jpg" style="width: 200; height:200;">
+                </div>
+                <div v-else="show" key="b">
+                    <img src="imgs/image.jpg" style="width: 400; height:300;">
+                </div>
+            </transition>
+            <p>※キーの変化によるトランジションの発動</p>
+            <button v-on:click="count++">切り替え</button>
+            <transition>
+                <div v-bind:key="count">{{count}}</div>
+            </transition>
+            <p>※リストのトランジション</p>
+            <p><button v-on:click="order=!order">切り替え</button></p>
+            <!-- transition-groupタグに指定した属性はラップ要素に付与される -->
+            <transition-group tag="ul" class="listSample">
+                <li v-for="item in sortedList" v-bind:key="item.id">
+                {{ item.name }} {{ item.price }}円
+                </li>
+            </transition-group>
+            <h3>※リストのトランジション</h3>
+            <p>
+                <button v-on:click="doShuffle">シャッフル</button>
+                <button v-on:click="doAdd">追加</button>
+            </p>
+            <transition-group tag="ul" class="list">
+            <li v-for="(item, index) in list"
+                v-bind:key="item"
+                class="item"
+                v-on:click="doRemove(index)">{{ item }}</li>
+            </transition-group>
+        </div>
+        <script src="js/vue.js"></script>
+        <script src="js/axios.js"></script>
+        <script src="js/lodash.js"></script>
+        <script src="js/main.js"></script>
+        
+    </body>
+</html> 

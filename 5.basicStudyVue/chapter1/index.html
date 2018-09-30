@@ -16,7 +16,11 @@
                 <li v-for="item in list">{{item}}</li>
             </ol>
             <button v-on:click="handleClick">click</button>
-
+            <br>
+            <p v-if="show">show is true</p>
+            <transition>
+                <button v-on:click="show =! show">切り替え</button>
+            </transition>
         </div>
         <script src="js/vue.js"></script>
         <script src="js/main.js"></script>

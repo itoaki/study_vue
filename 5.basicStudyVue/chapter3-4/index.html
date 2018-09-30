@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js App</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="app">
+            <p>{{message}}</p>
+            <img src="imgs/image.jpg" style="width: 200; height:200;" v-on:load="show=true" v-bind:class="{hide: !show}">
+            <p>※フォーム入力の取得</p>
+            <input v-bind:value="message" v-on:input="handleInput">
+            <p>※算出プロパティ</p>
+            <p>{{width1}} の半分は {{halfWidth1}}</p>
+            <p>x: {{halfPoint.x}} </p>
+            <p>y: {{halfPoint.y}} </p>
+            <p>xy: {{halfPoint}} </p>
+            <p>※リストの絞り込み</p>
+            <input v-model.number="budget" v-focus>円以下に絞り込む
+            <input v-model.number="limit"> 件を表示
+            <p>{{matched.length}}件中{{limited.length}}件を表示中</p>
+            <ol>
+                <li v-for="item in limited" v-bind:key="item.id">
+                    {{item.name}} {{item.price}}円
+                </li>
+            </ol>
+            <p>※githubからリポジトリ一覧を取得する</p>
+            <select v-model="current">
+                <option v-for="topic in topics"v-bind:value="topic.value">
+                    {{topic.name}}
+                </option>
+            </select>
+            <div v-for="item in gitList">{{item.full_name}}</div>
+        </div>
+        <script src="js/vue.js"></script>
+        <script src="js/axios.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html> 

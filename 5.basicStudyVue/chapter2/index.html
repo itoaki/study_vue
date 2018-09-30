@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js App</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="app">
+            <p>{{message}}</p>
+            <p>{{message.value}}</p>
+            <p>{{message.value.length}}</p>
+            <p>{{list[2]}}</p>
+            <p>{{list[num]}}</p>
+            <P> ※※※ section 8 ※※※ </P>
+            <P> ※※※ バインド ※※※ </P>
+            <input type="text" v-bind:value="message">
+            <input type="text" :value="message">
+
+            <P> ※※※ データの状態をJSON形式で画面表示 ※※※ </P>
+            <pre>{{$data}}</pre>
+
+            <P> ※※※ クリック回数増やす ※※※ </P>
+            <!--countプロパティを表示する-->
+            <p>{{count}}回クリックしたよ！</p>
+            <!-- このボタンをクリックするとincrementメソッドが呼び出される-->
+            <button v-on:click="increment">カウントを増やす</button>
+
+            <P> ※※※ クラスとスタイルのバインディング ※※※ </P>
+            <p v-bind:class="{child:isChild, 'is-active': isActive}">Text</p>
+            <p v-bind:style="{color:textColor, backgroundColor:bgColor}">Text</p>
+            <p>・クラスオブジェクトを渡す</p>
+            <p v-bind:class="classObject">Text</p>
+            <p v-bind:style="styleObject">Text</p>
+            <P> ※※※ 画像のバインディング ※※※ </P>
+            <img v-bind="item">
+            <img v-bind="item" v-bind:id="'thumb-' + item.id">
+            <P> ※※※ SVGのバインディング ※※※ </P>
+            <svg xmins="https://www.w3.org/2000/svg" version="1.1">
+                <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
+            </svg>
+            <input type="range" min="0" max="100" v-model.number="radius">
+            <P> ※※※ section 9 ※※※ </P>
+            <div v-if="ok">v-if条件による描画</div>
+            <div v-show="ok">v-show条件による描画</div>
+            <div v-if="type === 'A'">
+                type　は　A
+            </div>
+            <div v-else-if="type === 'B'">
+                type　は　
+            </div>
+            <div v-else>
+                すべての条件を満たさなかった
+            </div>
+            <P> ※※※ section 10 ※※※ </P>
+            <P> 〇モンスターリスト(HPが300以上のモンスターにつよいを表示) </P>
+            <ul>
+                <li v-for="(item, index) in list"
+                    v-bind:key="item.id"
+                    v-bind:class="{tuyoi: item.hp > 300}">
+                    index.{{index}} ID.{{item.id}} {{item.name}} HP.{{item.hp}}
+                    <span v-if="item.hp>300">つよい！</span>
+                </li>
+            </ul>
+            <P> 〇モンスターリスト(HPが300以下のモンスターのみ表示) </P>
+            <ul>
+                <li v-for="(item, index) in list"
+                    v-bind:key="item.id"
+                    v-bind:class="{tuyoi: item.hp > 300}"
+                    v-if="item.hp < 300">
+                    index.{{index}} ID.{{item.id}} {{item.name}} HP.{{item.hp}}
+                </li>
+            </ul>
+            <P> 〇モンスターリスト追加するやぁつ </P>
+            名前<input v-model="name">
+            <button v-on:click="doAdd">モンスターを追加</button>
+            <button v-on:click="doUpdateBulk()">キングスライムに更新</button>
+            <ul>
+                <li v-for="(item, index) in list" v-bind:key="item.id">
+                    No.{{index}} ID.{{item.id}} {{item.name}} HP.{{item.hp}}
+                    <span v-if="item.hp<50">瀕死！</span>
+                    <button v-on:click="doRemove(index)">モンスターを削除</button>
+                    <button v-on:click="doAttack(index)">モンスターを攻撃</button>
+                </li>
+            </ul>
+            <P> 〇外部ファイルからデータを取得 </P>
+            <P> ※chromeでローカルファイルを読み込めないので、コメントアウト中 </P>
+            <ul>
+                <li v-for="(item, index) in exdata" v-bind:key="item.id">
+                    No.{{index}} ID.{{item.id}} {{item.name}} HP.{{item.hp}}
+                </li>
+            </ul>
+        </div>
+        <script src="js/vue.js"></script>
+        <script src="js/axios.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

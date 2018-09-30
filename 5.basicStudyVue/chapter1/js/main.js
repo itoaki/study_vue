@@ -3,7 +3,8 @@ var app = new Vue({
     data:{
       message: 'Hello Vue.js!',
       count: '12345',
-      list:['りんご','ばなな','いちご']
+      list:['りんご','ばなな','いちご'],
+      show:true
     },
     methods:{
       handleClick: function(event) {
@@ -11,4 +12,3 @@ var app = new Vue({
       }
     }
   })
-console.log(app.message)

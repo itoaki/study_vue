@@ -1,0 +1,67 @@
+html, body {
+    margin: 5px;
+    padding: 0;
+}
+img {
+    opacity: 1;
+    transition: opacity ls;
+}
+img.hide{
+    opacity: 0;
+}
+/* 1秒かけて透明度を遷移 */
+.demo-enter-active, .demo-leave-active {
+    transition: opacity 1s;
+  }
+/* 見えなくなるときの透明度 */
+.demo-enter, .demo-leave-to {
+opacity: 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+/* 表示するときは左から */
+.v-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+/* 消えるときは下へ */
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.v-leave-active {
+    position: absolute;
+}
+/* 1秒かけて要素を移動させる */
+.v-move {
+    transition: transform 1s;
+  }
+/* 以下はボックス要素のスタイル */
+.list {
+    width: 240px;
+    padding: 0;
+  }
+  .item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px;
+    width: 40px;
+    height: 40px;
+    background: #f5f5f5;
+  }
+  /* トランジション用スタイル */
+  .v-enter-active, .v-leave-active, .v-move {
+    transition: all 1s;
+  }
+  .v-leave-active {
+    position: absolute;
+  }
+  .v-enter, .v-leave-to {
+    opacity: 0;
+    background: #f9a3b1;
+    transform: translateY(-30px);
+  }  
