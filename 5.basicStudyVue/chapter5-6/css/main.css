@@ -13,6 +13,7 @@ img.hide{
 .demo-enter-active, .demo-leave-active {
     transition: opacity 1s;
   }
+
 /* 見えなくなるときの透明度 */
 .demo-enter, .demo-leave-to {
 opacity: 0;
@@ -21,6 +22,9 @@ opacity: 0;
 .v-enter-active,
 .v-leave-active {
   transition: opacity 1s, transform 1s;
+}
+.v-enter-active, .v-leave-active {
+  transition: all 1s;
 }
 /* 表示するときは左から */
 .v-enter {

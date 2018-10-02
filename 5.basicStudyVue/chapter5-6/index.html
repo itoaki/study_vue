@@ -52,6 +52,28 @@
                 class="item"
                 v-on:click="doRemove(index)">{{ item }}</li>
             </transition-group>
+            <h3>※SVGトランジション</h3>
+            <button v-on:click="toggle=!toggle">切り替え</button>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <!-- SVGのパーツにトランジションを適用 -->
+              <transition>
+                <my-circle v-bind:fill="fill" v-bind:key="fill"></my-circle>
+              </transition>
+            </svg>
+            <h3>※トランジションフック</h3>
+            <p><button v-on:click="show=!show">切り替え</button></p>
+            <transition
+              v-on:before-enter="beforeEnter"
+              v-on:enter="enter"
+              v-on:after-enter="afterEnter"
+              v-on:enter-cancelled="enterCancelled"
+              v-on:before-leave="beforeLeave"
+              v-on:leave="leave"
+              v-on:after-leave="afterLeave"
+              v-on:leave-cancelled="leaveCancelled">
+              <div v-if="show">example</div>
+            </transition>
+
         </div>
         <script src="js/vue.js"></script>
         <script src="js/axios.js"></script>
