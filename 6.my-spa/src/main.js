@@ -4,7 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import lodash from 'lodash'
-Object.defineProperty(Vue.prototype, '$lodash', { value: lodash })
+import axios from 'axios'
+
+Vue.prototype.$lodash = lodash
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -37,6 +37,7 @@
   </article>
 </template>
 <script>
+/* eslint-disable */
 export default {
   data () {
     return {
@@ -53,17 +54,17 @@ export default {
     .then(
       (response) => {
         // 成功時
-        let listItem = response.body;
+        let listItem = response.body
         for (let i = listItem.length - 1; i >= 0; --i) {
-          listItem[i].rendered_body = listItem[i].rendered_body.replace(/<\/?[^>]+>/g, '').substring(0, 120) + '...';
+          listItem[i].rendered_body = listItem[i].rendered_body.replace(/<\/?[^>]+>/g, '').substring(0, 120) + '...'
         }
 
         // モデルに入れる
-        _this.listItem = listItem;
+        _this.listItem = listItem
       },
       (errResponse) => {
         // 失敗時
-        console.log(errResponse);
+        console.log(errResponse)
       }
     );
   }

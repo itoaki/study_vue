@@ -1,3 +1,7 @@
+/*
+ * 参照
+ * https://www.monster-dive.com/blog/web_creative/20180608_001789.php
+ */
 <template>
   <div id="app">
     <nav>
@@ -5,8 +9,9 @@
         <li><router-link to="/">Home(HelloWorld)</router-link></li>
         <li><router-link to="/shuffle">シャッフル</router-link></li>
         <li><router-link to="/todoList">TODOリスト</router-link></li>
-        <li><router-link to="/template">テンプレート直書き</router-link></li>
-        <li><router-link :to="{ name: 'user', params: { userId: 123 }}">ユーザー詳細ページ</router-link></li>
+        <li><router-link to="/clock">時計</router-link></li>
+        <li><router-link to="/ticket">チケットテスト</router-link></li>
+        <li><router-link to="/trello">trello(なにもない)</router-link></li>
       </ul>
     </nav>
     <router-view class="contents"/>
