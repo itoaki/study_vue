@@ -4,9 +4,10 @@
 
 <template>
   <div class="ticket">
-    <button @click="boardList">ボード取得</button>
+
     <h4>ボード取得</h4>
     <div class="thread">
+      <!--
       <table>
         <thead v-pre>
           <tr>
@@ -21,7 +22,9 @@
           </tr>
         </tbody>
       </table>
+    -->
     </div>
+<!--
     <h4>リスト取得</h4>
     <div class="thread">
       <table>
@@ -43,6 +46,7 @@
     <div class="thread">
         未実装
     </div>
+    -->
   </div>
 </template>
 
@@ -52,38 +56,22 @@ export default {
   data() {
     return {
 
-      listList: []
     }
   },
-  mothods: {
+  mounted: {
 
   },
-  computed: {
-    boardList: function () {
+  mounted: {
+    getBoardList: async function() {
       console.log("getBoardList")
-      axios.get('https://trello.com/1/members/me/boards?key=c189a02f51451ff1eda01f868fdc9d54&token=5b26f2ed0edb484dd44a7de8170ac8920b129fc36773552384dcab9e067243e1&fields=name')
-      .then((res) => {
+      await axios.get('https://trello.com/1/members/me/boards?key=c189a02f51451ff1eda01f868fdc9d54&token=5b26f2ed0edb484dd44a7de8170ac8920b129fc36773552384dcab9e067243e1&fields=name')
+      .then(res => {
         console.log(res.data)
-        this.bordList = res.data
+        //return Vue.set(this, this.bordlist, res.data)
       })
-      .catch((res) => {
-        console.error(res)
-      })
+
     }
-    /*,
-    getListList() {
-      _.forEach(this.getBoardList, function(boad) {
-        console.log(boad)
-        axios.get('https://trello.com/1/boards/" + boad.id + "/lists?key=c189a02f51451ff1eda01f868fdc9d54&token=5b26f2ed0edb484dd44a7de8170ac8920b129fc36773552384dcab9e067243e1&fields=name')
-            .then((res) => {
-              this.listList.push(res.data)
-            })
-            .catch((res) => {
-              console.error(res)
-            })
-      })
-    }
-    */
+
   }
 }
 </script>

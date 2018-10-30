@@ -5,7 +5,7 @@ import Clock from '@/components/Clock'
 import Shuffle from '@/components/Shuffle'
 import TodoList from '@/components/TodoList'
 import Ticket from '@/components/Ticket'
-
+import Qiita from '@/components/Qiita'
 Vue.use(Router)
 
 /*
@@ -34,6 +34,10 @@ export default new Router({
     {
       path: '/ticket',
       component: Ticket
+    },
+    {
+      path: '/qiita',
+      component: Qiita
     }
   ]
 })

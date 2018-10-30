@@ -12,6 +12,7 @@
         <li><router-link to="/clock">時計</router-link></li>
         <li><router-link to="/ticket">チケットテスト</router-link></li>
         <li><router-link to="/trello">trello(なにもない)</router-link></li>
+        <li><router-link to="/qiita">qiita</router-link></li>
       </ul>
     </nav>
     <router-view class="contents"/>
