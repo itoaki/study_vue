@@ -1,88 +1,175 @@
-/*
- *  ユーザー詳細ページのコンポーネント定義
- */
-
 <template>
-  <div class="qiita">
-    <section id="qiita-posts">
-        <h1>Qiita Posts</h1>
-        <button v-on:click="request">読み込み</button>
-        <hr>
-        <ul>
-            <li v-for="post in posts" v-bind:key="post.title">
-                <span class="tag" v-for='tag in post["tags"]' v-bind:key="tag['name']">{{ tag['name'] }}</span>
-                <a v-bind:href="post['url']" target="_blank" rel="noopener noreferrer">
-                    <div>{{ post['title'] }}</div>
-                </a>
-            </li>
-        </ul>
-    </section>
-  </div>
-</template>
+  <article>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col">
+        <h1>Api Smaple</h1>
+      </div>
+      <div class="mdl-cell mdl-cell--12-col">
+        <p>Qiitaの新着投稿20件を取得するサンプル</p>
+      </div>
+      <div class="mdl-cell mdl-cell--12-col mdl-grid">
 
+        <div v-for="(item, index) in listItem" v-bind:key="index" class="qiita-card mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h4>{{item.title}}</h4>
+            <div class="qiita-card__sub-info">
+              <img v-bind:src="item.user.profile_image_url" alt="">
+              <strong>{{item.user.id}}</strong>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text mdl-card--expand">
+            {{item.rendered_body}}
+          </div>
+          <div class="qiita-card__tags">
+            <span v-for="(tag, index) in item.tags" v-bind:key="index" class="mdl-chip">
+              <span class="mdl-chip__text">{{tag.name}}</span>
+            </span>
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <a v-bind:href="item.url" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" target="_blank">
+              View On Qiita
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </article>
+</template>
 <script>
 /* eslint-disable */
 export default {
-  data() {
+  data () {
     return {
-      posts: void(0)
-    }
+      listItem: []
+    };
   },
-  methods: {
-      request: () => {
-        var vm = this
-          axios.get( 'https://qiita.com/api/v2/users/ito_aki/items' )
-              .then( ( res ) => {
-                  vm.posts = res.data;
-              } )
-              .catch( ( res ) => {
-                  console.error( res );
-              } );
-      }
-  }
-}
-</script>
+  mounted () {
+    const _this = this;
 
+    const REQUEST_URL = 'https://qiita.com/api/v2/items?per_page=20';
+
+    // リクエスト投げる
+    this.$axios.get(REQUEST_URL)　
+    .then(
+      (response) => {
+        // 成功時
+        let listItem = response.data
+        for (let i = listItem.length - 1; i >= 0; --i) {
+          listItem[i].rendered_body = listItem[i].rendered_body.replace(/<\/?[^>]+>/g, '').substring(0, 120) + '...'
+        }
+
+        // モデルに入れる
+        _this.listItem = listItem
+      },
+      (errResponse) => {
+        // 失敗時
+        console.log(errResponse)
+      }
+    );
+  }
+};
+</script>
 <style>
 body {
-    padding: 0 10px;
+	font-family: 'helvetica', "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+	backface-visibility: hidden;
+  font-size: 16px;
+	background-color: #FAFAFA;
 }
 
-#qiita-posts {
-    h1 {
-        margin-bottom: 20px;
-        font-size: 1.2rem;
-        font-weight: bold;
+/* 基本的なスタイル */
+
+.page-content {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+
+  h1 {
+    margin: 30px 0 20px;
+    font-size: 32px;
+    line-height: 35px;
+  }
+  h2 {
+    margin: 21px 0 14px;
+    font-size: 28px;
+    line-height: 31px;
+  }
+  h3 {
+    margin: 18px 0 12px;
+    font-size: 24px;
+    line-height: 27px;
+  }
+}
+
+.mdl-navigation__link {
+  font-size: 16px;
+}
+
+.mdl-list__item-avatar.material-icons {
+  padding: 2px;
+  color: #757575;
+  background-color: transparent;
+  font-size: 36px;
+  &[data-type="cloud"] {
+    padding: 5px;
+    font-size: 30px;
+  }
+}
+
+.mdl-list__item {
+  .mdl-list__item-secondary-content {
+    align-items: center;
+  }
+}
+
+.qiita-card {
+  .mdl-card__title {
+    align-items: flex-start;
+    flex-direction: column;
+    h4 {
+      margin-top: 0;
     }
-
-    button {
-        margin-bottom: 10px;
-        padding: 4px 10px;
-        color: #fff;
-        font-size: 0.75rem;
-        background: #325d7c;
-        border: none;
-        border-radius: 2px;
-        box-shadow: 0 4px 0 darken( #325d7c, 4% );
-        cursor: pointer;
+  }
+  .qiita-card__sub-info {
+    width: 100%;
+    img {
+      width: 40px;
+      height: 40px;
     }
-
-    li {
-        margin-bottom: 15px;
-        line-height: 1.5;
-
-        .tag {
-            display: inline-block;
-            margin: 0 1px 6px;
-            padding: 2px 6px;
-            color: #fff;
-            font-size: 0.75rem;
-            background: #7daaca;
-        }
-
-        a {
-            color: darken( #7daaca, 24% );
-        }
+  }
+  .qiita-card__tags {
+    padding: 16px;
+    .mdl-chip {
+      margin-right: 8px;
     }
+  }
+/* メディアクエリーを使うスタイル */
+
+@media (min-width: 840px) {
+  .my-mdl-tabs {
+    .mdl-cell {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 839px) and (min-width: 480px) {
+  .my-mdl-tabs {
+    .mdl-cell {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .my-mdl-tabs {
+    .mdl-cell {
+      margin: 0;
+    }
+  }
+}
+
 }
 </style>
