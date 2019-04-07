@@ -59,3 +59,9 @@ var app7 = new Vue({
       ]
     }
 })
+var app8 = new Vue({
+  el: '#app-8',
+  data: {
+    input: 'red'
+  }
+})
